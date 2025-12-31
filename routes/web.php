@@ -16,6 +16,6 @@ Route::post('/login',[LoginController::class,'login'])->name('login.submit');
 
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 
-Route::get('/dashboard',function(){
-    return view('welcome to dashboard');
-});
+Route::get('/dashboard', function () {
+    return "Welcome to Dashboard";
+})->middleware('auth')->name('dashboard');
