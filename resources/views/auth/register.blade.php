@@ -13,19 +13,44 @@
     </div>
 @endif
 
-<form action="{{ route('register.submit') }}" method="POST">
+<form action="{{ route('register.post') }}" method="POST">
     @csrf
 
-    <input type="text" name="name" placeholder="Full Name" value="{{ old('name') }}">
+    <input
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        value="{{ old('name') }}"
+        required
+    >
 
-    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+    <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value="{{ old('email') }}"
+        required
+    >
 
-    <input type="password" name="password" placeholder="Password">
+    <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+    >
 
-    <input type="password" name="password_confirmation" placeholder="Confirm Password">
+    <input
+        type="password"
+        name="password_confirmation"
+        placeholder="Confirm Password"
+        required
+    >
 
     <button type="submit">Register</button>
 </form>
 
-<p>Already have an account? <a href="/login">Login</a></p>
+<p>
+    Already have an account?
+    <a href="{{ route('login') }}">Login</a>
+</p>
 @endsection
