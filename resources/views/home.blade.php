@@ -46,6 +46,8 @@
                 <a href="{{ route('add.cart', $product->id) }}" class="btn add-cart">
                     Add to Cart
                 </a>
+                
+                <a class="btn buy-now">Buy Now</a>
             @else
                 <button class="btn disabled" disabled>Unavailable</button>
             @endif
@@ -115,6 +117,10 @@
 }
 .add-cart{
     background:#ff9f00;
+    color:#fff;
+}
+.buy-now{
+    background:#f3c57a;
     color:#fff;
 }
 .disabled{
