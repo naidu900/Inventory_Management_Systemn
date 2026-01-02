@@ -45,7 +45,7 @@ class RegisterController extends Controller
         ]);
 
         //Generate Token 
-        $user->createToken('ecommerce-token')->plainTextToken;
+        $user->createToken('ecommerce-register-token')->plainTextToken;
 
         //Redirect to Login Page
         return redirect()->route('login')->with('success', 'Registration successful. Please login.');
