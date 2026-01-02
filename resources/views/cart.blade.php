@@ -15,6 +15,11 @@
         <p>₹ {{ $item->product->price }}</p>
         <p>Qty: {{ $item->quantity }}</p>
     </div>
+     <form action="{{ route('remove.cart', $item->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button style="color:red;">Remove</button>
+    </form>
 @endforeach
 
 <a href="{{ route('dashboard') }}">Proceed to Dashboard</a>

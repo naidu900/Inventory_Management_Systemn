@@ -44,6 +44,9 @@ Route::get('/add-to-cart/{id}', [CartController::class, 'add'])
     ->middleware('auth')
     ->name('add.cart');
 
+Route::delete('/remove-card/{id}',[CartController::class,'destroy'])
+    ->middleware('auth')    
+    ->name('remove.cart');
 
 
 Route::middleware('auth')->group(function () {
