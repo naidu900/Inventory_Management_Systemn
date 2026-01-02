@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home', [
-            'products' => Product::latest()->take(8)->get()
-        ]);
+        $products = Product::latest()->get();
+        return view('home', compact('products'));
     }
 }

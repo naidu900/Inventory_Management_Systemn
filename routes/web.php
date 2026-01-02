@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Jobs\ProcessDataJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+
+use App\Http\Controllers\Auth\AuthController;
+
 
 /*Route::get('/', function () {
     return view('welcome');
@@ -15,12 +19,13 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('register',[RegisterController::class,'showRegister'])->name('register');
-Route::Post('register',[RegisterController::class,'register'])->name('register.submit');
+Route::post('register',[RegisterController::class,'register'])->name('register.submit');
 
 Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login',[LoginController::class,'login'])->name('login.submit');
 
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
 
 /*Route::get('/dashboard', function () {
     return "Welcome to Dashboard";
@@ -53,3 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.delete');
 });
+
+// Route::get('/dashboard', function () {
+//     return "Welcome to Dashboard";
+// })->middleware('auth')->name('dashboard');
