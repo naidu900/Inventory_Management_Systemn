@@ -20,18 +20,30 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    // Store product
+    // Store product (WITH IMAGE - SPATIE)
     public function store(Request $request)
     {
         $request->validate([
-            'name'  => 'required',
+            'name'  => 'required|string|max:255',
             'price' => 'required|numeric',
-            'stock' => 'required|integer'
+            'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Product::create($request->all());
+        $product = Product::create([
+            'name'  => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
 
-        return redirect()->route('dashboard')->with('success','Product added');
+        // Save image using Spatie
+        if ($request->hasFile('image')) {
+            $product
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('products');
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Product added');
     }
 
     // Show edit form
@@ -40,17 +52,41 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    // Update product
+    // Update product (WITH IMAGE REPLACE)
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
-        return redirect()->route('dashboard')->with('success','Product updated');
+        $request->validate([
+            'name'  => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $product->update([
+            'name'  => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
+
+        // Replace image if new one uploaded
+        if ($request->hasFile('image')) {
+            $product->clearMediaCollection('products');
+
+            $product
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('products');
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Product updated');
     }
 
-    // Delete product
+    // Delete product (AUTO DELETE IMAGE)
     public function destroy(Product $product)
     {
+        // This deletes all media automatically
+        $product->clearMediaCollection('products');
         $product->delete();
-        return redirect()->route('dashboard')->with('success','Product deleted');
+
+        return redirect()->route('dashboard')->with('success', 'Product deleted');
     }
 }
