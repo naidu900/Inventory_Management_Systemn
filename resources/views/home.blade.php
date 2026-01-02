@@ -9,12 +9,13 @@
     <h1>Shop Smart, Shop Fast</h1>
     <p>Best products at best prices</p>
 
-    @auth
+    {{-- @auth
         <a href="{{ route('dashboard') }}" class="btn primary">Go to Dashboard</a>
-    @else
-        <a href="{{ route('login') }}" class="btn primary">Login</a>
-        <a href="{{ route('register') }}" class="btn secondary">Register</a>
-    @endauth
+    @else --}}
+        {{-- <a href="{{ route('login') }}" class="btn primary">Login</a>
+        <a href="{{ route('register') }}" class="btn secondary">Register</a> 
+        @endauth --}}
+    
 </div>
 
 <hr>
