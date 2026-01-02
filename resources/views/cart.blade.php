@@ -48,8 +48,7 @@
                         </div>
 
                     </div>
-                </div>
-            @endforeach
+                </div>                                                     
         </div>
 
         <a href="{{ route('dashboard') }}" class="btn btn-primary">
