@@ -45,6 +45,11 @@
                         {{-- ACTIONS (optional) --}}
                         <div class="col-md-3 text-end">
                             {{-- you can add remove/update buttons here --}}
+                             <form action="{{ route('remove.cart', $item->id) }}" method="POST">
+                                 @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Remove</button>
+                             </form>
                         </div>
 
                     </div>

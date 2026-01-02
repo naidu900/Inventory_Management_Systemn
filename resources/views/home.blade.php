@@ -10,12 +10,12 @@
         <h1 class="display-5 fw-bold">Shop Smart, Shop Fast</h1>
         <p class="lead">Best products at best prices</p>
 
-        @auth
+        {{-- @auth
             <a href="{{ route('dashboard') }}" class="btn btn-success me-2">Go to Dashboard</a>
         @else
             <a href="{{ route('login') }}" class="btn btn-primary me-2">Login</a>
             <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
-        @endauth
+        @endauth --}}
     </div>
 
     <hr>
@@ -66,7 +66,9 @@
                         <a href="{{ route('add.cart', $product->id) }}"
                            class="btn btn-warning w-100">
                             Add to Cart
-                        </a>
+                        </a></br>
+
+                        <a class="btn btn-warning w-100">Buy Now</a>
                     @else
                         <button class="btn btn-secondary w-100" disabled>
                             Unavailable
