@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>@yield('title')</title>
-    
+
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
-        /* Optional: custom styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -23,13 +22,6 @@
         }
         .container {
             padding: 20px;
-        }
-        /* Optional: style for logout button */
-        .logout-btn {
-            background: none;
-            color: white;
-            border: none;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -79,14 +71,49 @@
                 Dashboard
             </a>
 
-            <!-- LOGOUT -->
-            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                @csrf
-                <button type="submit"
-                        class="btn btn-outline-light btn-sm">
-                    Logout
+            <!-- PROFILE DROPDOWN (ADDED, NOTHING REMOVED) -->
+            <div class="dropdown me-2">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                    {{ Auth::user()->name }}
                 </button>
-            </form>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item"
+                           href="{{ route('profile.edit') }}">
+                            Edit Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                           href="{{ route('password.change') }}">
+                            Change Password
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item"
+                           href="{{ route('orders.track') }}">
+                            Track Order
+                        </a>
+                    </li>
+
+                    <li><hr class="dropdown-divider"></li>
+
+                    <li>
+                        <form action="{{ route('logout') }}"
+                              method="POST">
+                            @csrf
+                            <button type="submit"
+                                    class="dropdown-item text-danger">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
         @else
             <!-- LOGIN DROPDOWN -->
@@ -117,15 +144,15 @@
                 Register
             </a>
         @endauth
+
     </div>
 </nav>
-
 
 <div class="container mt-4">
     @yield('content')
 </div>
 
-<!-- Optional: Bootstrap JS + Popper (for components like dropdowns) -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

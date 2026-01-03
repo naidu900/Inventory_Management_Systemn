@@ -85,6 +85,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
    Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 
+   Route::get('/profile/edit', fn () => view('profile.edit'))->name('profile.edit');
+Route::get('/change-password', fn () => view('auth.change-password'))->name('password.change');
+Route::get('/orders', fn () => view('orders.track'))->name('orders.track');
+
+
 });
 
 // Route::get('/dashboard', function () {
