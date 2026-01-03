@@ -37,7 +37,7 @@ class LoginController extends Controller
             $user->createToken('ecommerce-login-token')->plainTextToken;
 
             // Redirect to Dashboard (NO JSON)
-            return redirect()->route('dashboard')
+            return redirect()->route('home')
                 ->with('success', 'Login successful');
         }
 

@@ -85,7 +85,7 @@ class ProductController extends Controller
     {
         // This deletes all media automatically
         $product->clearMediaCollection('products');
-        $product->delete();
+        $product->delete(); 
 
         return redirect()->route('dashboard')->with('success', 'Product deleted');
     }
