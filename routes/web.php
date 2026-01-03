@@ -92,6 +92,10 @@ Route::get('/orders', fn () => view('orders.track'))->name('orders.track');
 
 });
 
+//&search filter
+Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
+
+
 // Route::get('/dashboard', function () {
 //     return "Welcome to Dashboard";
 // })->middleware('auth')->name('dashboard');

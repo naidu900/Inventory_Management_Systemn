@@ -36,20 +36,20 @@
             MyShop
         </a>
 
-        <!-- SEARCH BAR -->
-        <form action="{{ route('home') }}" method="GET" class="d-flex">
-            <input
-                type="text"
-                name="search"
-                class="form-control form-control-sm"
-                placeholder="Search products..."
-                value="{{ request('search') }}"
-                style="width:220px;"
-            >
-            <button class="btn btn-warning btn-sm ms-1">
-                Search
-            </button>
-        </form>
+   <form action="{{ route('filter') }}" method="GET" class="d-flex">
+    <input
+        type="text"
+        name="search"
+        class="form-control form-control-sm"
+        placeholder="Search products..."
+        value="{{ request('search') }}"
+        style="width:220px;"
+    >
+    <button class="btn btn-warning btn-sm ms-1">
+        Search
+    </button>
+</form>
+
     </div>
 
     <!-- RIGHT : MENU -->
@@ -60,16 +60,24 @@
             Home
         </a> --}}
 
-        @auth
-            <a href="{{ route('cart') }}"
-               class="text-white text-decoration-none me-3">
-                Cart
-            </a>
+@auth
 
-            <a href="{{ route('dashboard') }}"
-               class="text-white text-decoration-none me-3">
-                Dashboard
-            </a>
+    {{-- USER ONLY --}}
+    @if(Auth::user()->role === 'user')
+        <a href="{{ route('cart') }}"
+           class="text-white text-decoration-none me-3">
+            Cart
+        </a>
+    @endif
+
+    {{-- ADMIN ONLY --}}
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('dashboard') }}"
+           class="text-white text-decoration-none me-3">
+            Dashboard
+        </a>
+    @endif
+
 
             <!-- PROFILE DROPDOWN (ADDED, NOTHING REMOVED) -->
             <div class="dropdown me-2">
