@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\ProfileController;
+
 
 
 /*Route::get('/', function () {
@@ -86,8 +88,28 @@ Route::middleware('auth')->group(function () {
    Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 
    Route::get('/profile/edit', fn () => view('profile.edit'))->name('profile.edit');
-Route::get('/change-password', fn () => view('auth.change-password'))->name('password.change');
+Route::get('/change-password', fn () => view('profile.password'))
+    ->name('password.change');
+
 Route::get('/orders', fn () => view('orders.track'))->name('orders.track');
+
+Route::middleware('auth')->group(function () {
+
+    // show edit profile page
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    // update profile
+    Route::post('/profile/update', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+        Route::get('/profile/password', [ProfileController::class, 'passwordForm'])
+        ->name('password.change');
+
+    Route::post('/profile/password', [ProfileController::class, 'updatePassword'])
+        ->name('password.update');
+
+});
 
 
 });
