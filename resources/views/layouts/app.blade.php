@@ -63,10 +63,10 @@
     <!-- RIGHT : MENU -->
     <div class="d-flex align-items-center">
 
-        <a href="{{ route('home') }}"
+        {{-- <a href="{{ route('home') }}"
            class="text-white text-decoration-none me-3">
             Home
-        </a>
+        </a> --}}
 
         @auth
             <a href="{{ route('cart') }}"

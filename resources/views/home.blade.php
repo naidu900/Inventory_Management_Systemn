@@ -72,7 +72,7 @@
                                 @else
                                     <a href="{{ route('login') }}"
                                        class="btn btn-warning mt-2">
-                                        Login to Buy
+                                        Buy Now
                                     </a>
                                 @endauth
                             </div>
