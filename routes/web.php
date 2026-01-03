@@ -1,21 +1,41 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Jobs\ProcessDataJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
 
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\AdminLoginController;
 
 
 /*Route::get('/', function () {
     return view('welcome');
 });*/
 
+/* Admin Login */
+Route::get('/admin/login', [AdminLoginController::class, 'showLogin'])
+    ->name('admin.login');
+
+Route::post('/admin/login', [AdminLoginController::class, 'login'])
+    ->name('admin.login.submit');
+
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])
+    ->name('admin.logout');
+
+/* Admin Dashboard */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])
+        ->name('admin.dashboard');
+});
+
+
+
+//user login
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('register',[RegisterController::class,'showRegister'])->name('register');
@@ -31,9 +51,9 @@ Route::post('/logout',[LoginController::class,'logout'])->name('logout');
     return "Welcome to Dashboard";
 })->middleware('auth')->name('dashboard');*/
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard');
+// Route::get('/dashboard', [DashboardController::class, 'index'])
+//     ->middleware('auth')
+//     ->name('dashboard');
 
 
 Route::get('/cart', [CartController::class, 'index'])

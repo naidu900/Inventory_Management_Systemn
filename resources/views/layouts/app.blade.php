@@ -35,27 +35,91 @@
 </head>
 <body>
 
-<nav class="d-flex justify-content-between align-items-center">
-    <div>
-        <a href="{{ route('home') }}" class="fw-bold text-white text-decoration-none">MyShop</a>
+<nav class="navbar navbar-dark bg-dark px-3 d-flex justify-content-between align-items-center">
+
+    <!-- LEFT : LOGO -->
+    <div class="d-flex align-items-center">
+        <a href="{{ route('home') }}"
+           class="fw-bold text-white text-decoration-none fs-4 me-4">
+            MyShop
+        </a>
+
+        <!-- SEARCH BAR -->
+        <form action="{{ route('home') }}" method="GET" class="d-flex">
+            <input
+                type="text"
+                name="search"
+                class="form-control form-control-sm"
+                placeholder="Search products..."
+                value="{{ request('search') }}"
+                style="width:220px;"
+            >
+            <button class="btn btn-warning btn-sm ms-1">
+                Search
+            </button>
+        </form>
     </div>
-    <div>
-        <a href="{{ route('home') }}" class="text-white text-decoration-none me-2">Home</a>
+
+    <!-- RIGHT : MENU -->
+    <div class="d-flex align-items-center">
+
+        <a href="{{ route('home') }}"
+           class="text-white text-decoration-none me-3">
+            Home
+        </a>
 
         @auth
-            <a href="{{ route('cart') }}" class="text-white text-decoration-none me-2">Cart</a>
-            <a href="{{ route('dashboard') }}" class="text-white text-decoration-none me-2">Dashboard</a>
+            <a href="{{ route('cart') }}"
+               class="text-white text-decoration-none me-3">
+                Cart
+            </a>
 
+            <a href="{{ route('dashboard') }}"
+               class="text-white text-decoration-none me-3">
+                Dashboard
+            </a>
+
+            <!-- LOGOUT -->
             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                 @csrf
-                <button class="logout-btn">Logout</button>
+                <button type="submit"
+                        class="btn btn-outline-light btn-sm">
+                    Logout
+                </button>
             </form>
+
         @else
-            <a href="{{ route('login') }}" class="text-white text-decoration-none me-2">Login</a>
-            <a href="{{ route('register') }}" class="text-white text-decoration-none">Register</a>
+            <!-- LOGIN DROPDOWN -->
+            <div class="dropdown me-3">
+                <button class="btn btn-outline-light btn-sm dropdown-toggle"
+                        data-bs-toggle="dropdown">
+                    Login
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item"
+                           href="{{ route('login') }}">
+                            User Login
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           href="{{ route('admin.login') }}">
+                            Admin Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="{{ route('register') }}"
+               class="btn btn-warning btn-sm">
+                Register
+            </a>
         @endauth
     </div>
 </nav>
+
 
 <div class="container mt-4">
     @yield('content')
