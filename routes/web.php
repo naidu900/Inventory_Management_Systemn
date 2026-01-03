@@ -60,6 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.delete');
+
+    //!quantity routes
+    Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
+   Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
+
 });
 
 // Route::get('/dashboard', function () {
