@@ -173,7 +173,7 @@
                 <ul class="list-unstyled">
                     <li><a href="{{ route('home') }}" class="text-light text-decoration-none">Home</a></li>
                     <li><a href="{{ route('cart') }}" class="text-light text-decoration-none">Cart</a></li>
-                    <li><a href="{{ route('dashboard') }}" class="text-light text-decoration-none">My Account</a></li>
+                    <li><a href="{{ route('home') }}" class="text-light text-decoration-none">My Account</a></li>
                     
                 </ul>
             </div>
@@ -182,7 +182,7 @@
             <div class="col-md-3 mb-3">
                 <h6 class="text-uppercase">Customer Care</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none">Contact Us</a></li>
+                    <li><a href="{{ route('contact') }}" class="text-light text-decoration-none">Contact Us</a></li>
                     <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Returns</a></li>
                     <li><a href="#" class="text-light text-decoration-none">Shipping Policy</a></li>
