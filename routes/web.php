@@ -31,10 +31,28 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout'])
     ->name('admin.logout');
 
 /* Admin Dashboard */
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/admin/dashboard', [DashboardController::class, 'index'])
+//         ->name('admin.dashboard');
+// });
+
+
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
+
+    // Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])
+    //     ->name('admin.dashboard');
+
+    Route::get('/users', [DashboardController::class, 'users'])
+        ->name('admin.users');
+
+    Route::get('/contacts', [DashboardController::class, 'contacts'])
+        ->name('admin.contacts');
 });
+
+
 
 
 
@@ -95,6 +113,8 @@ Route::get('/change-password', fn () => view('profile.password'))
 
 Route::get('/orders', fn () => view('orders.track'))->name('orders.track');
 
+
+
 Route::middleware('auth')->group(function () {
 
     // show edit profile page
@@ -125,10 +145,17 @@ Route::get('/thank-you', function () {
     return view('thankyou');
 })->name('thankyou');
 
-// Route::get('/dashboard', function () {
-//     return "Welcome to Dashboard";
-// })->middleware('auth')->name('dashboard');
 
 
+
+// contact us page 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+
+//  Route::get('/users', [DashboardController::class, 'users'])
+//         ->name('admin.users');
+
+//     Route::get('/contacts', [DashboardController::class, 'contacts'])
+//         ->name('admin.contacts');
+

@@ -73,5 +73,30 @@
     @else
         <div class="alert alert-info">No products available.</div>
     @endif
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Registered Users</h5>
+                    {{-- <h2>{{ $userCount }}</h2> --}}
+                    <a href="{{ route('admin.users') }}" class="btn btn-primary btn-sm">
+                        View Users
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Contact Messages</h5>
+                    {{-- <h2>{{ $contactCount }}</h2> --}}
+                    <a href="{{ route('admin.contacts') }}" class="btn btn-warning btn-sm">
+                        View Messages
+                    </a>
+                </div>
+            </div>
+        </div>
 </div>
 @endsection
