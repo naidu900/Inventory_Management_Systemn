@@ -76,8 +76,8 @@
 
         </div>
 
-        <a href="{{ route('dashboard') }}" class="btn btn-primary">
-            Proceed to Dashboard
+        <a href="{{ route('thankyou') }}" class="btn btn-warning">
+            Proceed to Pay
         </a>
     @endif
 </div>

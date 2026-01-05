@@ -118,6 +118,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 
 
+//?thanku page
+Route::get('/thank-you', function () {
+    return view('thankyou');
+})->name('thankyou');
+
 // Route::get('/dashboard', function () {
 //     return "Welcome to Dashboard";
 // })->middleware('auth')->name('dashboard');
