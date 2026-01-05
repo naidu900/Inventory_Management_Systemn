@@ -4,14 +4,15 @@ use App\Jobs\ProcessDataJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthController;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminLoginController;
-use App\Http\Controllers\ProfileController;
 
 
 
@@ -87,7 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
    Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 
-   Route::get('/profile/edit', fn () => view('profile.edit'))->name('profile.edit');
+   Route::get('/profile/edit', fn () => view('profile.edit'))
+   ->name('profile.edit');
 Route::get('/change-password', fn () => view('profile.password'))
     ->name('password.change');
 
@@ -126,3 +128,7 @@ Route::get('/thank-you', function () {
 // Route::get('/dashboard', function () {
 //     return "Welcome to Dashboard";
 // })->middleware('auth')->name('dashboard');
+
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
