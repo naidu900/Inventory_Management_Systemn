@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\PurchaseController;
 
 
 
@@ -141,9 +142,17 @@ Route::get('/filter', [HomeController::class, 'filter'])->name('filter');
 
 
 //?thanku page
+
+
+Route::post('/purchase', [PurchaseController::class, 'store'])
+    ->middleware('auth')
+    ->name('purchase.store');
+
+
 Route::get('/thank-you', function () {
     return view('thankyou');
 })->name('thankyou');
+
 
 
 

@@ -76,9 +76,12 @@
 
         </div>
 
-        <a href="{{ route('thankyou') }}" class="btn btn-warning">
-            Proceed to Pay
-        </a>
+<form action="{{ route('purchase.store') }}" method="POST">
+    @csrf
+    <button class="btn btn-warning">
+        Proceed to Pay
+    </button>
+</form>
     @endif
 </div>
 @endsection
