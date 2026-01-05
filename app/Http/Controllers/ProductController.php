@@ -4,23 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    // Show dashboard products
+    /**
+     * Show dashboard products
+     */
     public function index()
     {
-        $products = Product::latest()->get();
+        $user = Auth::user();
+
+        // Admin → all products
+        if ($user->role === 'admin') {
+            $products = Product::latest()->get();
+        }
+        // User → only own products
+        else {
+            $products = Product::where('user_id', $user->id)
+                               ->latest()
+                               ->get();
+        }
+
         return view('dashboard', compact('products'));
     }
 
-    // Show add product form
+    /**
+     * Show add product form
+     */
     public function create()
     {
         return view('products.create');
     }
 
-    // Store product (WITH IMAGE - SPATIE)
+    /**
+     * Store product (WITH IMAGE - SPATIE)
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -31,9 +50,10 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create([
-            'name'  => $request->name,
-            'price' => $request->price,
-            'stock' => $request->stock,
+            'user_id' => Auth::id(), //  ownership
+            'name'    => $request->name,
+            'price'   => $request->price,
+            'stock'   => $request->stock,
         ]);
 
         // Save image using Spatie
@@ -46,15 +66,22 @@ class ProductController extends Controller
         return redirect()->route('dashboard')->with('success', 'Product added');
     }
 
-    // Show edit form
+    /**
+     * Show edit form
+     */
     public function edit(Product $product)
     {
+        $this->authorizeProduct($product);
         return view('products.edit', compact('product'));
     }
 
-    // Update product (WITH IMAGE REPLACE)
+    /**
+     * Update product
+     */
     public function update(Request $request, Product $product)
     {
+        $this->authorizeProduct($product);
+
         $request->validate([
             'name'  => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -68,10 +95,8 @@ class ProductController extends Controller
             'stock' => $request->stock,
         ]);
 
-        // Replace image if new one uploaded
         if ($request->hasFile('image')) {
             $product->clearMediaCollection('products');
-
             $product
                 ->addMediaFromRequest('image')
                 ->toMediaCollection('products');
@@ -80,13 +105,29 @@ class ProductController extends Controller
         return redirect()->route('dashboard')->with('success', 'Product updated');
     }
 
-    // Delete product (AUTO DELETE IMAGE)
+    /**
+     * Delete product
+     */
     public function destroy(Product $product)
     {
-        // This deletes all media automatically
+        $this->authorizeProduct($product);
+
         $product->clearMediaCollection('products');
-        $product->delete(); 
+        $product->delete();
 
         return redirect()->route('dashboard')->with('success', 'Product deleted');
+    }
+
+    /**
+     * Authorization helper
+     */
+    private function authorizeProduct(Product $product)
+    {
+        if (
+            Auth::user()->role !== 'admin' &&
+            $product->user_id !== Auth::id()
+        ) {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }
